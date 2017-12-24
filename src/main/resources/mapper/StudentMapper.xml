@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.nongdewang.poi.dao.StudentMapper2">
+    <resultMap id="BaseResultMap" type="cn.nongdewang.poi.entity.Student">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="gender" jdbcType="CHAR" property="gender"/>
+        <result column="createby" jdbcType="VARCHAR" property="createby"/>
+        <result column="updateBy" jdbcType="VARCHAR" property="updateby"/>
+        <result column="createDate" jdbcType="TIMESTAMP" property="createdate"/>
+        <result column="status" jdbcType="CHAR" property="status"/>
+        <result column="math" jdbcType="DOUBLE" property="math"/>
+        <result column="chinese" jdbcType="DOUBLE" property="chinese"/>
+        <result column="english" jdbcType="DOUBLE" property="english"/>
+        <result column="physics" jdbcType="DOUBLE" property="physics"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    id, name, age, gender, createby, updateBy, createDate, status, math, chinese, english, 
+    physics
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from student
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="cn.nongdewang.poi.entity.Student">
+    insert into student (id, name, age, 
+      gender, createby, updateBy, 
+      createDate, status, math, 
+      chinese, english, physics
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=CHAR}, #{createby,jdbcType=VARCHAR}, #{updateby,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{status,jdbcType=CHAR}, #{math,jdbcType=DOUBLE}, 
+      #{chinese,jdbcType=DOUBLE}, #{english,jdbcType=DOUBLE}, #{physics,jdbcType=DOUBLE}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="cn.nongdewang.poi.entity.Student">
+        insert into student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="gender != null">
+                gender,
+            </if>
+            <if test="createby != null">
+                createby,
+            </if>
+            <if test="updateby != null">
+                updateBy,
+            </if>
+            <if test="createdate != null">
+                createDate,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="math != null">
+                math,
+            </if>
+            <if test="chinese != null">
+                chinese,
+            </if>
+            <if test="english != null">
+                english,
+            </if>
+            <if test="physics != null">
+                physics,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                #{gender,jdbcType=CHAR},
+            </if>
+            <if test="createby != null">
+                #{createby,jdbcType=VARCHAR},
+            </if>
+            <if test="updateby != null">
+                #{updateby,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null">
+                #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=CHAR},
+            </if>
+            <if test="math != null">
+                #{math,jdbcType=DOUBLE},
+            </if>
+            <if test="chinese != null">
+                #{chinese,jdbcType=DOUBLE},
+            </if>
+            <if test="english != null">
+                #{english,jdbcType=DOUBLE},
+            </if>
+            <if test="physics != null">
+                #{physics,jdbcType=DOUBLE},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.nongdewang.poi.entity.Student">
+        update student
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=CHAR},
+            </if>
+            <if test="createby != null">
+                createby = #{createby,jdbcType=VARCHAR},
+            </if>
+            <if test="updateby != null">
+                updateBy = #{updateby,jdbcType=VARCHAR},
+            </if>
+            <if test="createdate != null">
+                createDate = #{createdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=CHAR},
+            </if>
+            <if test="math != null">
+                math = #{math,jdbcType=DOUBLE},
+            </if>
+            <if test="chinese != null">
+                chinese = #{chinese,jdbcType=DOUBLE},
+            </if>
+            <if test="english != null">
+                english = #{english,jdbcType=DOUBLE},
+            </if>
+            <if test="physics != null">
+                physics = #{physics,jdbcType=DOUBLE},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.nongdewang.poi.entity.Student">
+    update student
+    set name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=CHAR},
+      createby = #{createby,jdbcType=VARCHAR},
+      updateBy = #{updateby,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=CHAR},
+      math = #{math,jdbcType=DOUBLE},
+      chinese = #{chinese,jdbcType=DOUBLE},
+      english = #{english,jdbcType=DOUBLE},
+      physics = #{physics,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        from student
+    </select>
+</mapper>
