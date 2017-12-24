@@ -49,6 +49,9 @@ public class StudentServiceImpl implements StudentService {
         List<Student>  studentList=studentMapper.findAll();
         String[] clumnNames= CommonConst.STUDENT_SOURCE_DATA;
         //将数据库数据转化为行形式
+        if(studentList==null){
+            System.out.println("用户信息获取失败!");
+        }
         List<Object[]> dataList=export2List(studentList,clumnNames);
         try {
             //创建工作薄
@@ -68,15 +71,17 @@ public class StudentServiceImpl implements StudentService {
             //装查询出的数据设置到sheet对应的单元格中
             for (int i =0;i<66350;i++) {
                 //遍历每个对象
-                Object[] obj = dataList.get(i);
-                //创建所需的行数
-                HSSFRow newRow = sheet.createRow( i);
-                for (int j = 0; j <obj.length; j++) {
-                    //设置单元格的数据类型
-                    HSSFCell cell = null;
-                    cell = newRow.createCell(j, HSSFCell.CELL_TYPE_STRING);
-                    if (!StringUtils.isEmpty(obj[j])) {
-                        cell.setCellValue(obj[j].toString());
+                if(dataList!=null){
+                    Object[] obj = dataList.get(i);
+                    //创建所需的行数
+                    HSSFRow newRow = sheet.createRow( i);
+                    for (int j = 0; j <obj.length; j++) {
+                        //设置单元格的数据类型
+                        HSSFCell cell = null;
+                        cell = newRow.createCell(j, HSSFCell.CELL_TYPE_STRING);
+                        if (!StringUtils.isEmpty(obj[j])) {
+                            cell.setCellValue(obj[j].toString());
+                        }
                     }
                 }
             }
