@@ -9,19 +9,18 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 public class Write2ExcelAction {
-    @Autowired
-    private StudentService studentService;
+	@Autowired
+	private StudentService studentService;
 
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
+	Object index() {
+		return "我的poidemo主页";
+	}
 
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    Object index ( ) {
-        return "我的poidemo主页";
-    }
-
-    @GetMapping("getScoreByExcel")
-    public void getExcelFile() {
-        String title ="student_score";
-        studentService.toExcelFile(title);
-    }
+	@GetMapping("getScoreByExcel")
+	public void getExcelFile() {
+		String title = "student_score";
+		studentService.toExcelFile(title);
+	}
 
 }

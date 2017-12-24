@@ -45,39 +45,33 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void toExcelFile(String title) {
+        //获得所有学生信息
         List<Student>  studentList=studentMapper.findAll();
         String[] clumnNames= CommonConst.STUDENT_SOURCE_DATA;
-        List<Object[]> dataList=export2List(studentList,clumnNames.length);
+        //将数据库数据转化为行形式
+        List<Object[]> dataList=export2List(studentList,clumnNames);
         try {
             //创建工作薄
             HSSFWorkbook workbook = new HSSFWorkbook();
             //创建工作表
             HSSFSheet sheet = workbook.createSheet(title);
 
-            //产生表格标题行
-            HSSFRow firstRow = sheet.createRow(0);
-            HSSFCell cellTitle = firstRow.createCell(0);
-            //在表格第一行填入标题
-            cellTitle.setCellValue(title);
-
-            //定义所需要的列数
-            int columnNum = clumnNames.length;
-            HSSFRow rowRowName = sheet.createRow(1);
-
+            //产生表格数据列名
+            HSSFRow rowRowName = sheet.createRow(0);
             //将列头设置在sheet的单元格中
+            int columnNum = clumnNames.length;
             for (int n = 0; n < columnNum; n++) {
                 HSSFCell cellColumnName = rowRowName.createCell(n);
-                HSSFRichTextString text = new HSSFRichTextString(clumnNames[n]);
-                cellColumnName.setCellValue(text);
+                cellColumnName.setCellValue(new HSSFRichTextString(clumnNames[n]));
             }
 
             //装查询出的数据设置到sheet对应的单元格中
-            for (int i = 0; i < dataList.size(); i++) {
+            for (int i =0;i<66350;i++) {
                 //遍历每个对象
                 Object[] obj = dataList.get(i);
                 //创建所需的行数
-                HSSFRow newRow = sheet.createRow(i + 1);
-                for (int j = 0; j < obj.length; j++) {
+                HSSFRow newRow = sheet.createRow( i);
+                for (int j = 0; j <obj.length; j++) {
                     //设置单元格的数据类型
                     HSSFCell cell = null;
                     cell = newRow.createCell(j, HSSFCell.CELL_TYPE_STRING);
@@ -109,25 +103,22 @@ public class StudentServiceImpl implements StudentService {
     }
 
     //讲所有学生的列表转换成对应的excel表格的列的信息
-    private List<Object[]> export2List(List<Student> studentList,int columns) {
-        List<Object[]> list = new ArrayList<>();
-        for (int i = 0; i < studentList.size(); i++) {
-            Student student = studentList.get(i);
-            for (int j=0;j<columns;j++){
-                Object[] objArr=new Object[columns];
-                objArr[0]=student.getId();
-                objArr[1]=student.getName();
-                objArr[2]=student.getAge();
-                objArr[3]=student.getGender();
-                objArr[4]=student.getChinese();
-                objArr[5]=student.getEnglish();
-                objArr[6]=student.getMath();
-                objArr[7]=student.getPhysics();
-                list.add(objArr);
-            }
+    private List<Object[]> export2List(List<Student> studentList,String[] columns) {
+        List<String[]> list=new ArrayList<>();
+        for(Student s :studentList){
+            String[] strArr=new String[columns.length];
+            // "编号", "姓名", "年龄", "语文", "英语", "数学", "物理"
+            strArr[0]=String.valueOf(s.getId());
+            strArr[1]=s.getName();
+            strArr[2]=String.valueOf(s.getAge());
+            strArr[3]=String.valueOf(s.getChinese());
+            strArr[4]=String.valueOf(s.getEnglish());
+            strArr[5]=String.valueOf(s.getMath());
+            strArr[6]=String.valueOf(s.getPhysics());
+            list.add(strArr);
         }
 
-        return list;
 
+    return null;
     }
 }
